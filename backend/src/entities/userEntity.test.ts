@@ -1,24 +1,38 @@
 import { DataSource, Repository } from "typeorm";
 import { User } from "./userEntity";
-import { createTestDatabase, destroyTestDatabase } from "../config/testDatabaseConfig";
+import {
+  createTestDatabase,
+  destroyTestDatabase,
+} from "../config/testDatabaseConfig";
 
-let testDataSource: DataSource;
-let userRepository: Repository<User>;
+describe("User entity test", () => {
+  let testDataSource: DataSource;
+  let userRepository: Repository<User>;
 
-beforeAll(async () => {
-    const { testDataSource: dataSource, userRepository: repo } = await createTestDatabase();
+  beforeAll(async () => {
+    const { testDataSource: dataSource, userRepository: repo } =
+      await createTestDatabase();
     userRepository = repo;
     testDataSource = dataSource;
   });
-  
+
   afterAll(async () => {
     await destroyTestDatabase(testDataSource);
   });
 
-test("Should create a user", async () => {
-  const user = userRepository.create({ username: "testuser" });
-  await userRepository.save(user);
+  it("Should create a user", async () => {
+    const userSave = userRepository.create({ username: "testuser" });
+    await userRepository.save(userSave);
 
-  expect(user.id).toBeDefined();
-  expect(user.username).toBe("testuser");
+    expect(userSave.id).toBeDefined();
+
+    const userLoad = await userRepository.findOne({
+      where: { id: userSave.id },
+    });
+
+    expect(userLoad).toBeTruthy();
+    if (userLoad) {
+      expect(userLoad.username).toBe("testuser");
+    }
+  });
 });
