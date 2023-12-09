@@ -10,10 +10,12 @@ describe("User entity test", () => {
   let userRepository: Repository<User>;
 
   beforeAll(async () => {
-    const { testDataSource: dataSource, userRepository: repo } =
-      await createTestDatabase();
-    userRepository = repo;
-    testDataSource = dataSource;
+    try {
+      testDataSource = await createTestDatabase("test_user_entity");
+      userRepository = testDataSource.getRepository(User);
+    } catch (error) {
+      console.error(error);
+    }
   });
 
   afterAll(async () => {
