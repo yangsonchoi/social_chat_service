@@ -1,6 +1,7 @@
 import { UserService } from "../services/userService";
 import { Request, Response } from "express";
 import { DataSource } from "typeorm";
+import { getUserIdFromToken } from "../utils/tokenVerfy";
 
 export class AuthController {
   private userService: UserService;
@@ -46,10 +47,8 @@ export class AuthController {
 
   //TODO: use JWT Token to validate
   async getMyInfo(req: Request, res: Response) {
-    const token = req.get("Authorization")?.split(" ")[1];
-    if (token) {
-      console.log(token);
-      const userId = parseInt(token);
+    const userId = getUserIdFromToken(req);
+    if (userId) {
       try {
         const user = await this.userService.getUserById(userId);
         if (user) {
