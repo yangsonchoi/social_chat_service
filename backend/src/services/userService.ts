@@ -41,4 +41,8 @@ export class UserService {
     }));
     return usersWithFriendCounts;
   }
+
+  async getUsersByIds(userIds: number[]): Promise<User[]> {
+    return this.userRepository.findUsersByIds(userIds);
+  }
 }
