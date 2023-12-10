@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { postSignin } from "./postSignin";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+import "./Login.css";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -55,7 +56,7 @@ const Login = () => {
           onChange={handleInputChange}
         />
       </div>
-      <div>
+      <div className="button-container">
         <button type="submit" onClick={handleSubmit}>
           Sign In
         </button>

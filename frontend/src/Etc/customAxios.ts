@@ -11,7 +11,7 @@ export const customAxios = () => {
   const token = getCookie('tokenId');
 
   const baseAxios: AxiosInstance = axios.create({
-    baseURL: "http://localhost:3002",
+    baseURL: "http://gamespringtestyachoi.ap-northeast-2.elasticbeanstalk.com/",
     headers: {
       "Content-Type": "application/json",
       ...(token ? { Authorization: `Bearer ${token}` } : {}),

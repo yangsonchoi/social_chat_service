@@ -1,0 +1,89 @@
+/* General Styles */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+.main-container {
+  width: 70%; /* Adjust this value as needed */
+  margin: auto; /* Centers the container */
+  /* Add any other styles as needed */
+}
+
+/* Login Container */
+.login-container {
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 500px;
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+}
+
+/* Form Styles */
+label {
+  display: block;
+  margin-bottom: 5px;
+  color: #666;
+}
+
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+/* Buttons */
+.button-container {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.button-container button {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  margin: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  background-color: antiquewhite;
+}
+
+button {
+	width: 20%;
+	padding: 10px;
+	border: none;
+	border-radius: 4px;
+	margin: 10px;
+	cursor: pointer;
+	font-weight: bold;
+	background-color: antiquewhite;
+  }
+
+button[type="submit"] {
+  background-color: #4caf50;
+  color: white;
+}
+
+button[type="button"] {
+  background-color: #555;
+  color: white;
+}
+
+button:hover {
+  opacity: 0.9;
+}
