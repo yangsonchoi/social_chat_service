@@ -63,8 +63,6 @@ export class FriendRepository {
       ].filter((id) => id !== null) as number[];
     });
 
-    console.log(friendIds);
-
     return Array.from(new Set(friendIds));
   }
 
