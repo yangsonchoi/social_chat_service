@@ -1,6 +1,7 @@
 import express from 'express'
 import { AppDataSource } from "./config/typeOrmConfig";
 import userRouter from "./routes/userRoutes"
+import authRouter from "./routes/authRoutes"
 
 AppDataSource.initialize()
   .then(() => {
@@ -12,6 +13,7 @@ const app = express();
 
 app.use(express.json());
 
-// app.use("/users", userRouter);
+app.use("/auth", authRouter);
+app.use("/users", userRouter);
 
 app.listen(3002);
