@@ -3,6 +3,7 @@ import { UserService } from "./userService";
 import { DataSource } from "typeorm";
 import { Friendship } from "../entities/friendshipEntity";
 import { FriendRequest } from "../entities/friendRequestEntity";
+import { User } from "../entities/userEntity";
 
 export class FriendService {
     private friendRepository: FriendRepository;
@@ -44,4 +45,25 @@ export class FriendService {
         }
         return this.friendRepository.countUserFriendships(userId);
     }
+
+    async getAllFriendsList(userId: number): Promise<number[]> {
+        if (!(await this.userService.userExists(userId))) {
+          throw new Error("User does not exist");
+        }
+        return this.friendRepository.getAllFriendsList(userId);
+      }
+      
+      async getAllFriendRequestsList(userId: number): Promise<number[]> {
+        if (!(await this.userService.userExists(userId))) {
+          throw new Error("User does not exist");
+        }
+        return this.friendRepository.getAllFriendRequestsList(userId);
+      }
+      
+      async getAllAddressedFriendsList(userId: number): Promise<number[]> {
+        if (!(await this.userService.userExists(userId))) {
+          throw new Error("User does not exist");
+        }
+        return this.friendRepository.getAllAddressedFriendsList(userId);
+      }
 }
