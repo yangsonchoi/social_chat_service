@@ -11,7 +11,6 @@ export class FriendController {
   constructor(dataSource: DataSource) {
     this.friendService = new FriendService(dataSource);
     this.userService = new UserService(dataSource);
-
   }
 
   async requestFriend(req: Request, res: Response) {
@@ -23,9 +22,11 @@ export class FriendController {
 
     try {
       await this.friendService.requestFriend(requesterId, addresseeId);
-      res.status(201).send('Friend request sent');
+      res.status(201).send("Friend request sent");
     } catch (error) {
-      res.status(500).json({ error: error instanceof Error ? error.message : "Unknown error" });
+      res.status(500).json({
+        error: error instanceof Error ? error.message : "Unknown error",
+      });
     }
   }
 
@@ -35,9 +36,11 @@ export class FriendController {
       try {
         const requesterId = parseInt(req.body.id);
         await this.friendService.acceptFriend(requesterId, addresseeId);
-        res.status(201).send('Friend request accepted');
+        res.status(201).send("Friend request accepted");
       } catch (error) {
-        res.status(500).json({ error: error instanceof Error ? error.message : "Unknown error" });
+        res.status(500).json({
+          error: error instanceof Error ? error.message : "Unknown error",
+        });
       }
     } else {
       res.status(401).json({ message: "Unauthorized" });
@@ -50,12 +53,31 @@ export class FriendController {
       try {
         const requesterId = parseInt(req.body.id);
         await this.friendService.declineFriend(requesterId, addresseeId);
-        res.status(200).send('Friend request declined');
+        res.status(200).send("Friend request declined");
       } catch (error) {
-        res.status(500).json({ error: error instanceof Error ? error.message : "Unknown error" });
+        res.status(500).json({
+          error: error instanceof Error ? error.message : "Unknown error",
+        });
       }
     } else {
       res.status(401).json({ message: "Unauthorized" });
+    }
+  }
+
+  async deleteFriend(req: Request, res: Response) {
+    const userId = getUserIdFromToken(req);
+    const friendId = parseInt(req.params.friendId); // Assuming you pass the friend's ID in the route parameter
+    if (!userId || isNaN(friendId)) {
+      return res.status(400).json({ message: "Invalid request" });
+    }
+
+    try {
+      await this.friendService.deleteFriend(userId, friendId);
+      res.status(200).send("Friend deleted");
+    } catch (error) {
+      res.status(500).json({
+        error: error instanceof Error ? error.message : "Unknown error",
+      });
     }
   }
 
@@ -70,7 +92,9 @@ export class FriendController {
       const friends = await this.userService.getUsersByIds(friendIds);
       res.status(200).json(friends);
     } catch (error) {
-      res.status(500).json({ error: error instanceof Error ? error.message : "Unknown error" });
+      res.status(500).json({
+        error: error instanceof Error ? error.message : "Unknown error",
+      });
     }
   }
 
@@ -78,11 +102,16 @@ export class FriendController {
     const userId = getUserIdFromToken(req);
     if (userId) {
       try {
-        const requestedFriendsIds = await this.friendService.getAllFriendRequestsList(userId);
-        const requestedFriends = await this.userService.getUsersByIds(requestedFriendsIds);
+        const requestedFriendsIds =
+          await this.friendService.getAllFriendRequestsList(userId);
+        const requestedFriends = await this.userService.getUsersByIds(
+          requestedFriendsIds
+        );
         res.status(200).json(requestedFriends);
       } catch (error) {
-        res.status(500).json({ error: error instanceof Error ? error.message : "Unknown error" });
+        res.status(500).json({
+          error: error instanceof Error ? error.message : "Unknown error",
+        });
       }
     } else {
       res.status(401).json({ message: "Unauthorized" });
@@ -93,11 +122,16 @@ export class FriendController {
     const userId = getUserIdFromToken(req);
     if (userId) {
       try {
-        const addressedFriendsIds = await this.friendService.getAllAddressedFriendsList(userId);
-        const addressedFriends = await this.userService.getUsersByIds(addressedFriendsIds);
+        const addressedFriendsIds =
+          await this.friendService.getAllAddressedFriendsList(userId);
+        const addressedFriends = await this.userService.getUsersByIds(
+          addressedFriendsIds
+        );
         res.status(200).json(addressedFriends);
       } catch (error) {
-        res.status(500).json({ error: error instanceof Error ? error.message : "Unknown error" });
+        res.status(500).json({
+          error: error instanceof Error ? error.message : "Unknown error",
+        });
       }
     } else {
       res.status(401).json({ message: "Unauthorized" });

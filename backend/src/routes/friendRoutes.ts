@@ -29,5 +29,8 @@ router.get("/addressed", (req: Request, res: Response) => {
   friendController.getAddressedFriends(req, res);
 });
 
+router.delete("/:friendId", (req: Request, res: Response) => {
+  friendController.deleteFriend(req, res);
+});
 
 export default router;
