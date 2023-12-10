@@ -52,7 +52,10 @@ const Users = () => {
   const sendFriendRequest = (userId: number) => {
     postFriendRequest(userId)
       .then(() => {
-        console.log("request sent");
+        const user = userlist.find((u) => u.id === userId);
+        if (user) {
+          setFriendRequestedlist((prevList) => [...prevList, user]);
+        }
       })
       .catch((err) => {
         console.log(err.message);

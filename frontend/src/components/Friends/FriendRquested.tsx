@@ -20,7 +20,8 @@ const FriendRquested = () => {
   const sendAccept = (userId: number) => {
     putFriendAccept(userId)
       .then(() => {
-        console.log("request sent");
+        const updatedRequests = friendRequestedlist.filter(user => user.id !== userId);
+        setFriendRequestedlist(updatedRequests);
       })
       .catch((err) => {
         console.log(err.message);
@@ -30,7 +31,8 @@ const FriendRquested = () => {
   const sendDecline = (userId: number) => {
     putFriendDecline(userId)
       .then(() => {
-        console.log("request sent");
+        const updatedRequests = friendRequestedlist.filter(user => user.id !== userId);
+        setFriendRequestedlist(updatedRequests);
       })
       .catch((err) => {
         console.log(err.message);
