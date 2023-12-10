@@ -1,4 +1,4 @@
-import { DataSource, Repository } from "typeorm";
+import { DataSource, In, Repository } from "typeorm";
 import { User } from "../entities/userEntity";
 
 export class UserRepository {
@@ -29,6 +29,15 @@ export class UserRepository {
   async findAllUsers(): Promise<User[]> {
     return this.userRepository.find({
       select: ["id", "username", "createdAt"],
+    });
+  }
+
+  async findUsersByIds(userIds: number[]): Promise<User[]> {
+    return this.userRepository.find({
+      select: ["id", "username", "createdAt"],
+      where: {
+        id: In(userIds),
+      },
     });
   }
 }
