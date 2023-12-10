@@ -1,6 +1,8 @@
 import { DataSource } from "typeorm";
 import { User } from "../entities/userEntity";
 import dotenv from "dotenv";
+import { FriendRequest } from "../entities/friendRequestEntity";
+import { Friendship } from "../entities/friendshipEntity";
 
 dotenv.config();
 
@@ -11,7 +13,7 @@ const AppDataSource = new DataSource({
   username: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
-  entities: [User],
+  entities: [User, FriendRequest, Friendship],
   synchronize: true,
   logging: true,
 });
