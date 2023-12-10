@@ -12,7 +12,7 @@ const userController = new UserController(AppDataSource);
 
 // Route for getting all users
 router.get("/", (req, res) => {
-  userController.getUserById(req, res);
+  userController.getAllUsers(req, res);
 });
 
 // Route for getting a user by ID
