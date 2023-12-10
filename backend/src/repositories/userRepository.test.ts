@@ -6,10 +6,6 @@ import { UserRepository } from "./userRepository";
 import { User } from "../entities/userEntity";
 import { DataSource } from "typeorm";
 
-function delay(duration: number) {
-  return new Promise((resolve) => setTimeout(resolve, duration));
-}
-
 describe("User Repository Tests", () => {
   let dataSource: DataSource;
   let userRepository: UserRepository;
