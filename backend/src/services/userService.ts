@@ -25,4 +25,8 @@ export class UserService {
     return this.userRepository.findAllUsers();
   }
 
+  async userExists(userId: number): Promise<boolean> {
+    const user = await this.userRepository.findUserById(userId);
+    return !!user;
+  }
 }
