@@ -1,24 +1,59 @@
 import React, { useEffect, useState } from "react";
-import { getUserAll, User } from "./getUserAll"; // Import the getUserAll function and User interface
+import { getUserAll, User } from "./getUserAll";
 import "./Users.css";
 import { postFriendRequest } from "./postFriendRequst";
+import { getFriendssList } from "./getFriendssList";
+import { getRequestList } from "./getRequestList";
+import { getMyIfno } from "./getMyIfno";
 
 const Users = () => {
+  const [myInfo, setMyInfo] = useState<User>();
   const [userlist, setUserlist] = useState<User[]>([]);
+  const [friendlist, setFriendlist] = useState<User[]>([]);
+  const [friendRequestedlist, setFriendRequestedlist] = useState<User[]>([]);
 
   useEffect(() => {
-    getUserAll()
+    getMyIfno()
       .then((res) => {
-        setUserlist(res.userlist);
+        setMyInfo(res.user);
       })
       .catch((err) => {
         console.log(err.message);
       });
-  }, []); // The empty dependency array ensures this effect runs only once when the component mounts
+    getFriendssList()
+      .then((res) => {
+        setFriendlist(res.userlist);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+    getRequestList()
+      .then((res) => {
+        setFriendRequestedlist(res.userlist);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, []);
+
+  useEffect(() => {
+    getUserAll()
+      .then((res) => {
+        const filteredUserList = res.userlist.filter(
+          (user) => user.id !== myInfo?.id
+        );
+        setUserlist(filteredUserList);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, [myInfo]);
 
   const sendFriendRequest = (userId: number) => {
     postFriendRequest(userId)
-      .then()
+      .then(() => {
+        console.log("request sent");
+      })
       .catch((err) => {
         console.log(err.message);
       });
@@ -33,7 +68,17 @@ const Users = () => {
             <div>ID: {user.username}</div>
             <div>가입날짜: {user.createdAt.slice(0, 10)}</div>
             <div>친구수: {user.friendCount}</div>
-            <button onClick={() => sendFriendRequest(user.id)}>친구요청</button>
+            {friendlist.some((friend) => friend.id === user.id) ? (
+              <div>친구</div>
+            ) : friendRequestedlist.some(
+                (request) => request.id === user.id
+              ) ? (
+              <div>요청됨</div>
+            ) : (
+              <button onClick={() => sendFriendRequest(user.id)}>
+                친구요청
+              </button>
+            )}
           </div>
         ))}
       </div>
