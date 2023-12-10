@@ -4,6 +4,8 @@ import userRouter from "./routes/userRoutes";
 import authRouter from "./routes/authRoutes";
 import friendRouter from "./routes/friendRoutes";
 import cors from "cors";
+import morgan from "morgan";
+
 
 AppDataSource.initialize()
   .then(() => {
@@ -15,8 +17,9 @@ AppDataSource.initialize()
 
 const app = express();
 
-app.use(cors({ origin: "http://localhost:3000" }));
+app.use(cors());
 app.use(express.json());
+app.use(morgan('combined'))
 
 app.use("/auth", authRouter);
 app.use("/users", userRouter);
