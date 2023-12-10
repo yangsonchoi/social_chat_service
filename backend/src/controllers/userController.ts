@@ -34,7 +34,7 @@ export class UserController {
 
   async getAllUsers(req: Request, res: Response) {
     try {
-      const users = await this.userService.getAllUsers();
+      const users = await this.userService.getAllUsersWithFriendCounts();
       res.status(200).json(users);
     } catch (error) {
       if (error instanceof Error) {
