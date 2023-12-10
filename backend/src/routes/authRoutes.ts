@@ -27,8 +27,8 @@ router.post("/signup", validateCredential,  (req: Request, res: Response) => {
   authController.signup(req, res);
 });
 
-// router.get("/me", (req, res) => {
-//   authController.getMyInfo(req, res);
-// });
+router.get("/me", (req, res) => {
+  authController.getMyInfo(req, res);
+});
 
 export default router;
