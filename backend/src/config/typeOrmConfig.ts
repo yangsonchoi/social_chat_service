@@ -15,7 +15,7 @@ const AppDataSource = new DataSource({
   database: process.env.DB_DATABASE,
   entities: [User, FriendRequest, Friendship],
   synchronize: true,
-  logging: true,
+  // logging: true,
 });
 
 export { AppDataSource };
