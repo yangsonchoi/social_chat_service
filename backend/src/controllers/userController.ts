@@ -1,15 +1,6 @@
 import { UserService } from "../services/userService";
 import { NextFunction, Request, Response } from "express";
 import { DataSource } from "typeorm";
-import { validationResult } from "express-validator";
-
-const validator = (req: Request, res: Response, next: NextFunction) => {
-  const errors = validationResult(req);
-  if (errors.isEmpty()) {
-    return next();
-  }
-  return res.status(400).json({ messages: errors.array() });
-};
 
 export class UserController {
   private userService: UserService;
@@ -17,7 +8,6 @@ export class UserController {
   constructor(dataSource: DataSource) {
     this.userService = new UserService(dataSource);
   }
-
   // will be used from auth/signup to createUser 
   //   async createUser(req: Request, res: Response) {
   //     try {
