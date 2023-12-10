@@ -10,12 +10,10 @@ const Main = () => {
 
   const [selectedComponent, setSelectedComponent] = useState("Rooms");
 
-  // Function to handle button click and set the selected component
   const handleButtonClick = (componentName: string) => {
     setSelectedComponent(componentName);
   };
 
-  // Render the selected component based on the state
   const renderSelectedComponent = () => {
     switch (selectedComponent) {
       case "Rooms":
@@ -25,15 +23,13 @@ const Main = () => {
       case "Friends":
         return <Friends />;
       default:
-        return <Rooms />; // Render nothing if no component is selected
+        return <Rooms />;
     }
   };
 
   const handleLogout = () => {
-	// Remove the "tokenId" cookie (or replace it with the name of your cookie)
 	Cookies.remove("tokenId");
   
-	// Use navigate to send the user to the "/" page
 	navigate("/");
   };
 
