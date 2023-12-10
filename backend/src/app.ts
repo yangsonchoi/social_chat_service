@@ -25,4 +25,4 @@ app.use("/auth", authRouter);
 app.use("/users", userRouter);
 app.use("/friend", friendRouter);
 
-app.listen(3002);
+app.listen(8080);
