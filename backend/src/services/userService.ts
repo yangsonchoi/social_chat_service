@@ -17,8 +17,8 @@ export class UserService {
     return this.userRepository.findUserById(id);
   }
 
-  async getUserByName(name: string): Promise<User | null> {
-    return this.userRepository.findUserByName(name);
+  async getUserWithPasswordByName(name: string): Promise<User | null> {
+    return this.userRepository.findUserWithPasswordByName(name);
   }
 
   async getAllUsers(): Promise<User[]> {

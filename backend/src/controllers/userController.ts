@@ -36,7 +36,9 @@ export class UserController {
       }
       res.json(user);
     } catch (error) {
-      res.status(500);
+      if (error instanceof Error) {
+        res.status(500).json({ error: error.message });
+      }
     }
   }
 

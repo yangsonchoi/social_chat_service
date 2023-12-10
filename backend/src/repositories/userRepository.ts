@@ -19,9 +19,9 @@ export class UserRepository {
     });``
   }
 
-  async findUserByName(name: string): Promise<User | null> {
+  async findUserWithPasswordByName(name: string): Promise<User | null> {
     return this.userRepository.findOne({
-      select: ["id", "username", "createdAt"],
+      select: ["id", "username", "password", "createdAt"],
       where: { username: name },
     });
   }
