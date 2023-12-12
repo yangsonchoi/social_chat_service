@@ -5,7 +5,8 @@ import authRouter from "./routes/authRoutes";
 import friendRouter from "./routes/friendRoutes";
 import cors from "cors";
 import morgan from "morgan";
-
+import { Server } from "socket.io";
+import Socket from "./sockets/socket";
 
 AppDataSource.initialize()
   .then(() => {
@@ -19,10 +20,11 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-app.use(morgan('combined'))
+app.use(morgan("combined"));
 
 app.use("/auth", authRouter);
 app.use("/users", userRouter);
 app.use("/friend", friendRouter);
 
-app.listen(8080);
+const server = app.listen(8080);
+new Socket(server);
