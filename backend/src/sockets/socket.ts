@@ -56,7 +56,7 @@ class Socket {
 
     socket.on("chat", (msg: string) => {
       console.log("Received message:", socket.id, msg);
-      this.io.to(socket.data.room).emit("chat", msg);
+      this.io.to(socket.data.room).emit("chat", `${socket.data.username}: ${msg}`);
     });
 
     socket.on("join", (room) => {
