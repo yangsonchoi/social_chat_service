@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Socket, io } from "socket.io-client";
 import { getMyInfo } from "../Users/getMyInfo";
 import { User } from "../Users/getUserAll";
+import "./Rooms.css";
 
 const Rooms = () => {
   const [myInfo, setMyInfo] = useState<User>();
@@ -95,6 +96,12 @@ const Rooms = () => {
     }
   };
 
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
   return (
     <div>
       {!roomSelected ? (
@@ -111,17 +118,20 @@ const Rooms = () => {
           </div>
         </div>
       ) : (
-        <div>
-          <h2>{roomName}</h2>
-          <p>
-            Number of people: {roomName === "room1" ? room1Count : room2Count}
-          </p>
-          <div>
+        <div className="chat-room-container">
+          <div className="room-info">
+            <h2>{roomName}</h2>
+            <p>
+              Number of people: {roomName === "room1" ? room1Count : room2Count}
+            </p>
+          </div>
+          <div className="chat-messages">
             {messages.map((msg, index) => (
               <p key={index}>{msg}</p>
             ))}
+            <div ref={messagesEndRef} />
           </div>
-          <div>
+          <div className="input-area">
             <input
               type="text"
               value={currentMessage}
@@ -135,15 +145,17 @@ const Rooms = () => {
             />
             <button onClick={sendMessage}>Send</button>
           </div>
-          <div>
+          <div className="user-list">
             <h3>Users in Room</h3>
             <ul>
               {usersInRoom.map((user, index) => (
-                <li key={index}>{user}</li> // Display each user
+                <li key={index}>{user}</li>
               ))}
             </ul>
           </div>
-          <button onClick={leaveRoom}>Leave Room</button>
+          <div className="room-actions">
+            <button onClick={leaveRoom}>Leave Room</button>
+          </div>
         </div>
       )}
     </div>
