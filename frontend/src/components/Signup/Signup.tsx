@@ -23,6 +23,10 @@ const Signup = () => {
       })
       .catch((err) => {
         console.log(err.message);
+        if (err.response) {
+          console.log(err.response.data.message);
+          alert(err.response.data.message);
+        }
       });
   };
 

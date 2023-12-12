@@ -26,6 +26,9 @@ const Login = () => {
       })
       .catch((err) => {
         console.log(err.message);
+        if (err.response.data.message) {
+          alert(err.response.data.message);
+        }
       });
   };
 
