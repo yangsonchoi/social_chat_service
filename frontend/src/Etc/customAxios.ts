@@ -12,6 +12,7 @@ export const customAxios = () => {
 
   const baseAxios: AxiosInstance = axios.create({
     baseURL: "http://gamespringtestyachoi.ap-northeast-2.elasticbeanstalk.com/",
+    // baseURL: "http://localhost:8080/",
     headers: {
       "Content-Type": "application/json",
       ...(token ? { Authorization: `Bearer ${token}` } : {}),
