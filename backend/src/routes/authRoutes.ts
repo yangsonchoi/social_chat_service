@@ -15,7 +15,7 @@ const validateCredential = [
   body("password")
     .trim()
     .notEmpty()
-    .withMessage("password should be atleast 5 characters"),
+    .withMessage("password should not be empty"),
   validator,
 ];
 
