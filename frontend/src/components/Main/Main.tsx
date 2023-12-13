@@ -6,7 +6,7 @@ import Users from "../Users/Users";
 import Friends from "../Friends/Friends";
 
 const Main = () => {
-	const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const [selectedComponent, setSelectedComponent] = useState("Rooms");
 
@@ -28,13 +28,13 @@ const Main = () => {
   };
 
   const handleLogout = () => {
-	Cookies.remove("tokenId");
-  
-	navigate("/");
+    Cookies.remove("tokenId");
+
+    navigate("/");
   };
 
   return (
-    <div>
+    <div className="main-container">
       <h1>Main</h1>
       <div>
         <button onClick={() => handleButtonClick("Rooms")}>Rooms</button>

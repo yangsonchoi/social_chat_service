@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { postSignup } from "./postSignup";
 import { useNavigate } from "react-router-dom";
+import "./Signup.css";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -18,11 +19,15 @@ const Signup = () => {
   const handleSubmit = () => {
     postSignup(credentials)
       .then(() => {
-        console.log("signup success")
+        console.log("signup success");
         navigate("/");
       })
       .catch((err) => {
         console.log(err.message);
+        if (err.response) {
+          console.log(err.response.data.message);
+          alert(err.response.data.message);
+        }
       });
   };
 
@@ -50,7 +55,7 @@ const Signup = () => {
         />
       </div>
       <div>
-        <button type="button" onClick={handleSubmit}>
+        <button type="button" onClick={handleSubmit} className="signup-button">
           Sign Up
         </button>
       </div>

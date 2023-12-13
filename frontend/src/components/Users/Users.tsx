@@ -4,7 +4,7 @@ import "./Users.css";
 import { postFriendRequest } from "./postFriendRequst";
 import { getFriendssList } from "./getFriendssList";
 import { getRequestList } from "./getRequestList";
-import { getMyIfno } from "./getMyIfno";
+import { getMyInfo } from "./getMyInfo";
 
 const Users = () => {
   const [myInfo, setMyInfo] = useState<User>();
@@ -13,7 +13,7 @@ const Users = () => {
   const [friendRequestedlist, setFriendRequestedlist] = useState<User[]>([]);
 
   useEffect(() => {
-    getMyIfno()
+    getMyInfo()
       .then((res) => {
         setMyInfo(res.user);
       })
@@ -37,16 +37,18 @@ const Users = () => {
   }, []);
 
   useEffect(() => {
-    getUserAll()
-      .then((res) => {
-        const filteredUserList = res.userlist.filter(
-          (user) => user.id !== myInfo?.id
-        );
-        setUserlist(filteredUserList);
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
+    if (myInfo) {
+      getUserAll()
+        .then((res) => {
+          const filteredUserList = res.userlist.filter(
+            (user) => user.id !== myInfo?.id
+          );
+          setUserlist(filteredUserList);
+        })
+        .catch((err) => {
+          console.log(err.message);
+        });
+    }
   }, [myInfo]);
 
   const sendFriendRequest = (userId: number) => {

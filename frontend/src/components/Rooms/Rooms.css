@@ -1,0 +1,80 @@
+/* Chat room container */
+.chat-room-container {
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+  margin: auto;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Chat messages area */
+.chat-messages {
+  flex-grow: 1;
+  padding: 10px;
+  overflow-y: auto;
+  height: 300px; 
+}
+
+/* Scroll to bottom for new messages */
+.chat-messages p {
+  margin: 0 0 5px;
+}
+
+/* User list */
+.user-list {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0;
+}
+
+.user-list li {
+  margin-bottom: 5px;
+}
+
+/* Input area */
+.input-area {
+  display: flex;
+  padding: 10px;
+  border-top: 1px solid #ddd;
+}
+
+.input-area input {
+  flex-grow: 1;
+  padding: 5px;
+  margin-right: 10px;
+}
+
+.input-area button {
+  padding: 5px 10px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.input-area button:hover {
+  background-color: #45a049;
+}
+
+/* Room info and actions */
+.room-info,
+.room-actions {
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-bottom: 1px solid #ddd;
+}
+
+.room-actions button {
+  padding: 5px 10px;
+  margin-left: 10px;
+  background-color: #f44336;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.room-actions button:hover {
+  background-color: #e53935;
+}

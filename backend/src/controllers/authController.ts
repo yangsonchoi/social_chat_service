@@ -29,7 +29,7 @@ export class AuthController {
       }
     } catch (error) {
       if (error instanceof Error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).json({ message: error.message });
       }
     }
   }
@@ -37,10 +37,14 @@ export class AuthController {
   async signup(req: Request, res: Response) {
     try {
       await this.userService.createUser(req.body);
-      res.status(201);
+      res.status(201).end();
     } catch (error) {
       if (error instanceof Error) {
-        res.status(400).json({ error: error.message });
+        if (error.message.includes("ER_DUP_ENTRY")) {
+          res.status(400).json({ message: " username already exist" });
+        } else {
+          res.status(500).json({ message: error.message });
+        }
       }
     }
   }
@@ -58,7 +62,7 @@ export class AuthController {
         }
       } catch (error) {
         if (error instanceof Error) {
-          res.status(500).json({ error: error.message });
+          res.status(500).json({ message: error.message });
         }
       }
     } else {
